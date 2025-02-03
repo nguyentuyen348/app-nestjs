@@ -1,10 +1,15 @@
 import { Module } from '@nestjs/common';
+import { MongooseModule } from '@nestjs/mongoose';
 import { AuthService } from './auth.service';
 import { AuthController } from './auth.controller';
 import { JwtModule } from '@nestjs/jwt';
+import { User, UserSchema } from '../schemas/user.schema';
+import * as bcrypt from 'bcrypt';
+
 
 @Module({
   imports: [
+    MongooseModule.forFeature([{ name: User.name, schema: UserSchema }]),
     JwtModule.register({
       secret: 'thiopkmlouthbvnhjduertycxawssftrg',  // Thay bằng secret key của bạn
       signOptions: { expiresIn: '1h' },  // Token hết hạn sau 1 giờ
